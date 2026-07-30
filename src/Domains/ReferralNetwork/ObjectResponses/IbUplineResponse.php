@@ -11,7 +11,7 @@ final class IbUplineResponse
 {
     public function __construct(
         public readonly ?int $levels = null,
-        /** @var IbReferralUserItem[] */
+        /** @var IbUplineLevelItem[] */
         public readonly array $upline = [],
     ) {}
 }
