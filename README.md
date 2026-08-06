@@ -42,6 +42,12 @@ if ($result->isSuccess()) {
     /** @var UserProfileItem $profile */
     $profile = $result->getMappedData(UserProfileItem::class);
 }
+
+$bulk = $iam->users()->lookupByIds([$userId, $anotherUserId]);
+if ($bulk->isSuccess()) {
+    /** @var list<UserProfileItem> $profiles */
+    $profiles = $bulk->getMappedData(UserProfileItem::class);
+}
 ```
 
 Dominios disponibles:
@@ -49,7 +55,7 @@ Dominios disponibles:
 - `$iam->referralNetwork()` — upline, downline, direct referrals
 - `$iam->ibSettings()` — `getNetworkSettings()`
 - `$iam->auth()` — `confirmTwoFactor($code, $extraHeaders)`
-- `$iam->users()` — `getProfile($userId)` (lookups fuera-de-request)
+- `$iam->users()` — `getProfile($userId)`, `lookupByIds(array $userIds)`, `searchCustomerDirectory(array $params)`
 - `$iam->health()` — health check
 
 ## Transporte intercambiable
