@@ -31,6 +31,21 @@ final class ReferralNetworkService extends AbstractIamDomainService implements R
         return $this->get($this->userIbPath($userId, 'referrals/direct'));
     }
 
+    public function getReferralChildren(
+        string $ibUserId,
+        ?string $parentUserId = null,
+        int $page = 1,
+        int $perPage = 100,
+    ): ActionResultInterface {
+        $query = ['page' => max(1, $page), 'per_page' => min(100, max(1, $perPage))];
+
+        if ($parentUserId !== null && trim($parentUserId) !== '') {
+            $query['parent_user_id'] = $parentUserId;
+        }
+
+        return $this->get($this->userIbPath($ibUserId, 'referrals/children'), $query);
+    }
+
     /**
      * @return array<string, int>
      */
